@@ -1,0 +1,11 @@
+-- ============================================
+-- Stock Analytics Platform
+-- Database and Schema Setup
+-- ============================================
+
+CREATE DATABASE IF NOT EXISTS STOCK_ANALYTICS;
+
+CREATE SCHEMA IF NOT EXISTS STOCK_ANALYTICS.RAW;
+CREATE SCHEMA IF NOT EXISTS STOCK_ANALYTICS.STAGING;
+CREATE SCHEMA IF NOT EXISTS STOCK_ANALYTICS.DW;
+CREATE SCHEMA IF NOT EXISTS STOCK_ANALYTICS.SEM;
