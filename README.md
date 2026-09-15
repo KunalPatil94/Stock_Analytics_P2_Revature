@@ -829,11 +829,11 @@ This project is intended for educational, portfolio and demonstration purposes.
 
 ## 👤 Author
 
-**Your Name**
+**Kunal R. Patil**
 
 Computer Engineering  
 Data Engineering | Snowflake | dbt | SQL | Cloud Data Platforms
 
-GitHub: `<YOUR_GITHUB_PROFILE>`
+GitHub: `https://github.com/KunalPatil94`
 
-LinkedIn: `<YOUR_LINKEDIN_PROFILE>`
+LinkedIn: `https://www.linkedin.com/in/kunal-r-patil-a2975325a/`
