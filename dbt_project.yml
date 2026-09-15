@@ -1,0 +1,30 @@
+name: stock_analytics
+version: '1.0.0'
+
+profile: stock_analytics
+
+model-paths: ["models"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  stock_analytics:
+    +static_analysis: strict
+
+    staging:
+      +materialized: view
+
+    dw:
+      +materialized: table
+      +schema: DW
+
+    sem:
+      +materialized: view
+      +schema: SEM
+

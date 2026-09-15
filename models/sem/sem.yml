@@ -1,0 +1,56 @@
+version: 2
+
+models:
+
+  - name: stock_daily_analytics
+    description: >
+      Row-level semantic view, one row per trade session. Adds intraday-only
+      derived metrics (daily_return_pct, daily_range_pct, turnover,
+      turnover_usd). These are same-session calculations only - never
+      period-over-period - because most tickers in this seed dataset have
+      only 1-5 sparse, non-consecutive sessions across the 25-day window.
+    columns:
+      - name: daily_return_pct
+        description: (close - open) / open * 100, within the same session.
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: -50
+                max_value: 50
+                inclusive: true
+        
+      - name: daily_range_pct
+        description: (high - low) / open * 100, within the same session.
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 60
+                inclusive: true
+      - name: turnover
+        description: close * volume, in the exchange's local currency.
+        data_tests:
+          - not_null
+      - name: turnover_usd
+        description: >
+          turnover converted to USD using the fx_rates_usd seed. Indicative
+          rate, not a trade-date FX rate - for cross-currency comparison
+          only.
+
+  - name: company_performance
+    description: >
+      One row per ticker, aggregated across all its sessions in the window.
+      avg_daily_return_pct is the mean of each session's own intraday
+      return - not a period return - see stock_daily_analytics for why.
+
+  - name: sector_exchange_summary
+    description: >
+      One row per (sector, exchange_code), built only from intraday metrics.
+      Replaces any client-side (Streamlit/pandas) groupby doing the same
+      thing with a period-over-period calculation.
+
+  - name: market_movers
+    description: >
+      Row-level view ranked by intraday daily_return_pct and by volume.
+      Powers Top Gainers / Top Losers / Volume Leaders directly - no ranking
+      logic needed on the client side.

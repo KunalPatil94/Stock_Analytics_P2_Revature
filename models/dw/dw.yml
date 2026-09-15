@@ -1,0 +1,69 @@
+version: 2
+
+models:
+
+  - name: dim_date
+    columns:
+      - name: sk_date
+        data_tests:
+          - not_null
+          - unique
+
+      - name: full_date
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_exchange
+    columns:
+      - name: sk_exchange
+        data_tests:
+          - not_null
+          - unique
+
+      - name: exchange_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: dim_company
+    columns:
+      - name: sk_company
+        data_tests:
+          - not_null
+          - unique
+
+      - name: company_id
+        data_tests:
+          - not_null
+
+  - name: fact_daily_price
+    columns:
+      - name: price_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: sk_date
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: sk_date
+
+      - name: sk_company
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_company')
+                field: sk_company
+
+      - name: sk_exchange
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_exchange')
+                field: sk_exchange

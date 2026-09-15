@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: raw
+    database: STOCK_ANALYTICS
+    schema: RAW
+
+    tables:
+      - name: RAW_EXCHANGES
+      - name: RAW_COMPANIES
+      - name: RAW_PRICES_DAILY
+      - name: RAW_CORPORATE_ACTIONS
+
+  - name: raw_synth
+    database: STOCK_ANALYTICS
+    schema: RAW_SYNTH
+
+    tables:
+      - name: RAW_EXCHANGES
+      - name: RAW_COMPANIES
+      - name: RAW_PRICES_DAILY
+      - name: RAW_CORPORATE_ACTIONS

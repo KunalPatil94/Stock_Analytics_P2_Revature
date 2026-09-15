@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+  - name: fx_rates_usd
+    description: >
+      Reference/lookup data: indicative USD conversion rate per currency,
+      used only to make turnover comparable across NSE (INR), NASDAQ/NYSE
+      (USD), LSE (GBP), etc. Not trade-date FX rates - static reference
+      data, versioned like any other seed.
+    columns:
+      - name: currency
+        data_tests:
+          - not_null
+          - unique
+      - name: usd_rate
+        data_tests:
+          - not_null

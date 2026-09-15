@@ -1,0 +1,77 @@
+version: 2
+
+models:
+
+  - name: stg_exchanges
+    columns:
+      - name: exchange_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: exchange_code
+        data_tests:
+          - not_null
+          - unique
+
+  - name: stg_companies
+    columns:
+      - name: company_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: ticker
+        data_tests:
+          - not_null
+          - unique
+
+      - name: primary_exchange_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_exchanges')
+                field: exchange_id
+
+  - name: stg_prices_daily
+    columns:
+      - name: price_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: trade_date
+        data_tests:
+          - not_null
+
+      - name: company_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_companies')
+                field: company_id
+
+      - name: exchange_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_exchanges')
+                field: exchange_id
+
+  - name: stg_corporate_actions
+    columns:
+      - name: action_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: company_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_companies')
+                field: company_id
